@@ -9,9 +9,7 @@ const userRouter = require('./router/userRouter');
 
  
 
-////////////////////// database connect fuction start //////////////////////
-databaseconnect()
-////////////////////// database connect fuction end //////////////////////
+
 
 
  
@@ -25,10 +23,19 @@ app.use('/',productRouter)
 app.use('/',userRouter)
 
 
-app.listen(port,()=>{
+
+
+
+////////////////////// database connect fuction start //////////////////////
+databaseconnect().then(()=>{
+ app.listen(port,()=>{
     
     console.log(`listening on ${port}`.bgWhite.black);
 });
+})
+////////////////////// database connect fuction end //////////////////////
+
+
 
 
 
