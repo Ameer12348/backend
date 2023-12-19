@@ -4,7 +4,7 @@ const usercheck = require('../controller/usercheck')
 const getuser = require('../controller/getuser')
 const edituser = require('../controller/edituser')
 
-
+ 
 
 const userRouter = express.Router()
 
