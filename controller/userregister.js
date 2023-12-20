@@ -1,8 +1,10 @@
 const UserSchema = require("../schema/UserSchema");
+const bcrypt = require("bcrypt");
+
 
 const userregister = async (req, res) => {
-  const data = req.body;
-  if ( !data.userName || !data.email || !data.password) {
+  const {password,...data} = req.body;
+  if ( !data.userName || !data.email || !password) {
     res.send({ message: "please provide all information" });
   } else {
     const emailcheck = await UserSchema.findOne({ email: data.email });
@@ -15,7 +17,8 @@ const userregister = async (req, res) => {
       if (usernamecheck) {
         res.send({ message: "username already registered" });
       } else {
-        const savedata1 = new UserSchema(data);
+        const hash = await bcrypt.hash(password,10)
+        const savedata1 = new UserSchema({...data,password:hash});
         const savedata2 = await savedata1.save();
         if (savedata2) {
           res.send({ message: "registered successfully" });
